@@ -1,0 +1,72 @@
+import pandas as pd
+import numpy as np
+import joblib
+import json
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# ============================================================
+# LOAD DATASET
+# ============================================================
+print("Loading dataset...")
+df = pd.read_csv("Disease and symptoms dataset.csv")     # <-- your new dataset
+print("Shape:", df.shape)
+
+# ============================================================
+# IDENTIFY TARGET COLUMN
+# ============================================================
+target_col = "diseases"   # <-- NEW correct column name
+
+# Separate features (symptoms) and target (disease)
+X = df.drop(columns=[target_col])
+y = df[target_col]
+
+# Store exact symptom order for Django UI
+symptom_order = list(X.columns)
+
+# Encode disease names to numeric
+le = LabelEncoder()
+y_encoded = le.fit_transform(y)
+
+# ============================================================
+# SPLIT DATA
+# ============================================================
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y_encoded, test_size=0.15, random_state=42
+)
+
+# ============================================================
+# TRAIN A STRONG RANDOM FOREST MODEL
+# ============================================================
+print("Training RandomForest...")
+
+model = RandomForestClassifier(
+    n_estimators=300,
+    max_depth=None,
+    n_jobs=-1,
+    class_weight="balanced",
+    random_state=42
+)
+
+model.fit(X_train, y_train)
+
+# ============================================================
+# TEST ACCURACY
+# ============================================================
+pred = model.predict(X_test)
+acc = accuracy_score(y_test, pred) * 100
+print("\nAccuracy:", acc)
+
+# ============================================================
+# SAVE FILES FOR DJANGO
+# ============================================================
+joblib.dump(model, "ml_model.pkl")
+joblib.dump(le, "label_encoder.pkl")
+json.dump(symptom_order, open("symptom_order.json", "w"))
+
+print("\nSaved:")
+print("ml_model.pkl")
+print("label_encoder.pkl")
+print("symptom_order.json")
