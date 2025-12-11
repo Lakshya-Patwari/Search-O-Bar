@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Side Chat Bot</title>
+  <link rel="stylesheet" href="static/style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="brand"> Chat Bot</div>
+    <div class="actions">
+      <a class="gh" href="/" rel="noreferrer">Search-O-Bar</a> 
+      <button id="themeToggle" title="Toggle theme">🌓</button>
+      <a class="gh" href="https://example.com" target="_blank" rel="noreferrer">Docs</a>
+    </div>
+  </header>
+
+  <main class="container chat-container">
+    <div class="chat-window" id="chatWindow">
+     
+    </div>
+    
+    <div id="loader" class="loader hidden">Typing…</div>
+
+    <form id="chatForm" class="chat-form">
+      <input id="chatQuery" type="text" placeholder="Ask a question or a follow-up..." autofocus />
+      <button type="submit">Send</button>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <span>Powered by Gemini 2.5 Flash</span>
+  </footer>
+
+ 
+  <script src="static/chat.js"></script>
+</body>
+</html>

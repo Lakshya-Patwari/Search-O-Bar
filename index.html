@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Search-O-Bar</title>
+  <link rel="stylesheet" href="static/style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="brand">Search-O-Bar</div>
+    <div class="actions">
+    
+      <button id="themeToggle" title="Toggle theme">🌓</button>
+      <a class="gh" href="https://example.com" target="_blank" rel="noreferrer">Docs</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Ask the web</h1>
+      <form id="askForm">
+        <input id="query" type="text" placeholder="Ask anything..." autofocus />
+        <button type="submit">Search</button>
+      </form>
+     
+    </section>
+
+    <section id="result" class="result hidden">
+      <div id="chatHandoffContainer" class="handoff-container hidden"></div>
+      <div class="answer-card">
+        <div class="answer-heading">Answer</div>
+        <div id="answer" class="answer"></div>
+      </div>
+
+      <div class="sources-card">
+        <div class="sources-heading">Sources</div>
+        <ul id="sources"></ul>
+      </div>
+    </section>
+
+    <div id="loader" class="loader hidden">Thinking…</div>
+  </main>
+
+  <footer class="footer">
+    <span>Redefining the way you search.</span>
+  </footer>
+
+  <script src="static/app.js"></script>
+</body>
+</html>
